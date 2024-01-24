@@ -1,5 +1,3 @@
-// deck.go
-
 package main
 
 import (
@@ -8,14 +6,17 @@ import (
 	"time"
 )
 
+// deck tipi, bir kart destesini temsil eder.
 type deck []string
 
+// newDeck, bir kart destesi oluşturan ve geri döndüren yardımcı fonksiyon.
 func newDeck() deck {
 	cards := deck{}
-
+	// Destede Bulunması Gereken Kartları cardSuits ve cardValues in içersine Tanımladık
 	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
 	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "King", "Joker", "Queen"}
 
+	// Her tür ve değer kombinasyonunu ekleyerek desteyi oluşturma komutunu ekledik.
 	for _, suit := range cardSuits {
 		for _, value := range cardValues {
 			cards = append(cards, value+" of "+suit)
@@ -24,12 +25,14 @@ func newDeck() deck {
 	return cards
 }
 
+// Kart destesini ekrana yazdıran yöntemi kurduk
 func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i, card)
 	}
 }
 
+// shuffle, kart destesini karıştıran ve geri döndüren yöntem.
 func (d deck) shuffle() deck {
 	source := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(source)
@@ -42,12 +45,14 @@ func (d deck) shuffle() deck {
 	return d
 }
 
+// dealOneCard, bir kartı desteden çıkararak döndüren ve desteyi güncelleyen yöntem.
 func dealOneCard(d *deck) (string, deck) {
 	card := (*d)[0]
 	*d = (*d)[1:]
 	return card, *d
 }
 
+// calculateScore, bir elin skorunu hesaplayan fonksiyon.
 func calculateScore(hand deck) int {
 	score := 0
 	for _, card := range hand {
@@ -59,7 +64,7 @@ func calculateScore(hand deck) int {
 			card == "Joker of Spades" || card == "Joker of Diamonds" || card == "Joker of Hearts" || card == "Joker of Clubs":
 			score += 10
 		default:
-			score += 1 // Assume all other cards have a value of 1 for simplicity
+			score += 1 // Diğer kartların değeri 1 olarak kabul ediliyor.
 		}
 	}
 
