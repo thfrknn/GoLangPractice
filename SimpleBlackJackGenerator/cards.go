@@ -6,17 +6,14 @@ import (
 	"time"
 )
 
-// deck tipi, bir kart destesini temsil eder.
 type deck []string
 
 // newDeck, bir kart destesi oluşturan ve geri döndüren yardımcı fonksiyon.
 func newDeck() deck {
 	cards := deck{}
-	// Destede Bulunması Gereken Kartları cardSuits ve cardValues in içersine Tanımladık
 	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
 	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "King", "Joker", "Queen"}
 
-	// Her tür ve değer kombinasyonunu ekleyerek desteyi oluşturma komutunu ekledik.
 	for _, suit := range cardSuits {
 		for _, value := range cardValues {
 			cards = append(cards, value+" of "+suit)
@@ -64,7 +61,7 @@ func calculateScore(hand deck) int {
 			card == "Joker of Spades" || card == "Joker of Diamonds" || card == "Joker of Hearts" || card == "Joker of Clubs":
 			score += 10
 		default:
-			score += 1 // Diğer kartların değeri 1 olarak kabul ediliyor.
+			score += 1
 		}
 	}
 
